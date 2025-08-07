@@ -1,12 +1,89 @@
-login-container{
-height: 400;
+.hero-section {
+  position: relative;
+  height: 70vh; 
+  background: url(./Images/header_background.jpg) no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  overflow: hidden;
 }
 
-body{
-background-image: url(./Images/header_background.jpg);
-    background-size:cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.chevron-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #000 100%);
+  z-index: 4;
+  pointer-events: none;
 }
 
-/*This is a test line of code*/
+.hero-content {
+  z-index: 3;
+
+}
+
+body {
+  background-color: #000;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.login-container {
+  padding: 2rem;
+  max-width: 400px;
+  margin: 4rem auto;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  color: white;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ff4d00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #cc3c00;
+}
+
+.form-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.form-footer a {
+  color: #ff4d00;
+  text-decoration: none;
+}
