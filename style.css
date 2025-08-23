@@ -9,8 +9,6 @@
   color: white;
   text-align: center;
   overflow: hidden;
-  margin-left: 220px; 
-  width: calc(100% - 220px);
 }
 
 .logo-image {
@@ -53,8 +51,6 @@ body {
   margin-top: -150px; 
   position: relative;
   z-index: 5; 
-  margin-left: 220px;
-  width: calc(100% - 220px); 
 }
 
 .login-form {
