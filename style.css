@@ -142,13 +142,52 @@ h1, h2{
   width: 220px;
   background-color: #1e1e2f;
   color: #fff;
-  height: 100vh;
+  height: 70vh;
   position: fixed;
   left: 0;
   top: 0;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.2);
   z-index: 10;
+  transition: width 0.3s ease;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 90%, #000 100%);
+
+}
+
+.sidebar.collapsed {
+    width: 60px;
+    padding: 20px 10px;
+    height: 70vh; 
+}
+
+.sidebar.collapsed h2,
+.sidebar.collapsed .menu-text {
+    display: none;
+}
+
+.toggle-btn {
+    position: absolute;
+    right: -40px;
+    top: 10px;
+    background: #1e1e2f;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+}
+
+.toggle-btn:hover {
+    background: #ff4d00;
+}
+
+.main-content {
+    transition: margin-left 0.3s ease;
+}
+
+.main-content.expanded {
+    margin-left: 60px;
 }
 
 .sidebar h2 {
