@@ -7,48 +7,69 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-     <header class="hero-section">
-        <div class="chevron-overlay"></div>
-        <div class="sidebar">
-            <button class="toggle-btn">☰</button>
-                <h2>Menu</h2>
-                 <ul>
-                    <li>
-                        <a href="#dashboard">
-                     🏠 <span class="menu-text">Dashboard</span>
-                     </a>
-                     </li>
-                     <li>
-                        <a href="#log">
-                     📝 <span class="menu-text">Log Workout</span>
-                     </a>
-                     </li>
-                     <li>
-                        <a href="#history">
-                     📅 <span class="menu-text">Workout History</span>
-                     </a>
-                     </li>
-                     <li>
-                        <a href="#goals">
-                     🎯 <span class="menu-text">Goals & Progress</span>
-                     </a>
-                     </li>  
-                     <li>
-                        <a href="#achievements">
-                     🏆 <span class="menu-text">Achievements</span>
-                     </a>
-                     </li>
-                     <li>
-                        <a href="#reminders">
-                     💡 <span class="menu-text">Reminders & Tips</span>
-                     </a>
-                     </li>
-                </ul>
-        </div>
-    <div class="main-content">
-
+    <div class="sidebar">
+        <button class="toggle-btn">☰</button>
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="#dashboard">🏠 <span class="menu-text">Dashboard</span></a></li>
+            <li><a href="#log-workout">📝 <span class="menu-text">Log Workout</span></a></li>
+            <li><a href="#workout-history">📅 <span class="menu-text">Workout History</span></a></li>
+            <li><a href="#goals">🎯 <span class="menu-text">Goals & Progress</span></a></li>
+            <li><a href="#achievements">🏆 <span class="menu-text">Achievements</span></a></li>
+            <li><a href="#reminders">💡 <span class="menu-text">Reminders & Tips</span></a></li>
+        </ul>
     </div>
-</header>
-<script src="index.js"></script>
+
+    <div class="main-content">
+        <header class="hero-section">
+            <div class="chevron-overlay"></div>
+          <div id="content-container">
+            <!-- Dynamic pages structure -->
+             <div id="dashboard" class="page">
+               <h1>This is the dashboard!</h1>
+             </div>
+             <div id="log-workout" class="page">
+               <h1>Log Workout</h1>
+    <form id="workoutForm">
+        <label>
+            Workout Type:
+            <input type="text" id="workoutType" required>
+        </label><br><br>
+
+        <label>
+            Duration (minutes):
+            <input type="number" id="duration" required>
+        </label><br><br>
+
+        <label>
+            Calories Burned:
+            <input type="number" id="calories" required>
+        </label><br><br>
+
+        <label>
+            Date of Workout:
+            <input type="date" id="date" required>
+        </label><br><br>
+
+        <button type="submit">Add Workout</button>
+    </form>
+
+             </div>
+             <div id="workout-history" class="page">
+               <h1>This is the workout history</h1>
+             </div>
+             <div id="goals" class="page">
+               <h1>This is your goals</h1>
+             </div>
+             <div id="achievements" class="page">
+               <h1>These are your achievements</h1>
+             </div>
+             <div id="reminders" class="page">
+               <h1>These are your reminders</h1>
+             </div>
+             </header>
+    </div>
+
+    <script src="index.js"></script>
 </body>
 </html>

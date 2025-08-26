@@ -92,11 +92,11 @@ input[type="password"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #ff4d00; 
+  background-color: #cf0909; 
 }
 
 .login-btn:hover {
-  background-color: #cc3c00;
+  background-color: #cf0909;
 }
 
 .form-footer {
@@ -105,7 +105,7 @@ input[type="password"] {
 }
 
 .form-footer a {
-  color: #ff4d00;
+  color: #cf0909;
   text-decoration: none;
 }
 .login-form {
@@ -133,14 +133,14 @@ h2 {
 }
 
 h1, h2{
-  color: rgb(204, 60, 0)
+  color: #cf0909;
 }
 
 /* Main menu style */
 
 .sidebar {
   width: 220px;
-  background-color: #1e1e2f;
+  background-color: #cf0909;
   color: #fff;
   height: 70vh;
   position: fixed;
@@ -169,7 +169,7 @@ h1, h2{
     position: absolute;
     right: -40px;
     top: 10px;
-    background: #1e1e2f;
+    background: #000000;
     border: none;
     color: white;
     padding: 10px;
@@ -179,7 +179,7 @@ h1, h2{
 }
 
 .toggle-btn:hover {
-    background: #ff4d00;
+    background: #cf0909;
 }
 
 .main-content {
@@ -187,13 +187,14 @@ h1, h2{
 }
 
 .main-content.expanded {
-    margin-left: 60px;
+    margin-left: -20px;
 }
 
 .sidebar h2 {
   margin-bottom: 30px;
   font-size: 1.5rem;
   text-align: center;
+  background: rgba(107, 109, 109, 0.6);;
 }
 
 .sidebar ul {
@@ -214,7 +215,36 @@ h1, h2{
 }
 
 .sidebar a:hover {
-  background-color: #ff4d00;
+  background-color: #cf0909;
   padding-left: 10px;
   border-radius: 4px;
+}
+
+/* Content area style */
+#content-container {
+    padding: 20px;
+    margin-left: 220px; 
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar a.active {
+    background-color: #cf0909;
+    border-radius: 4px;
+}
+
+
+.sidebar.collapsed + .main-content #content-container {
+    margin-left: 60px;
+}
+
+/* Page styling */
+
+.page {
+    background: rgba(107, 109, 109, 0.6);
+    color: #333;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    max-width: 700px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
