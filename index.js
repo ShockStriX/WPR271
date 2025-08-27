@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let workouts = [];
+  let workouts = [];
   // Login form handler
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (pageID === "dashboard") {
       renderCharts();
     }
-        if (pageID === "workout-history") {
-        displayWorkoutHistory();
+    if (pageID === "workout-history") {
+      displayWorkoutHistory();
     }
   }
 
@@ -164,50 +164,54 @@ document.addEventListener("DOMContentLoaded", function () {
   displayWorkoutHistory();
 
   //Generating Workout Charts
-function renderCharts(){
+  function renderCharts() {
     if (window.pieChart) window.pieChart.destroy();
     if (window.barChart) window.barChart.destroy();
 
     const typeCounts = {};
-    workouts.forEach(w => {
-        typeCounts[w.type] = (typeCounts[w.type] || 0) + 1;
+    workouts.forEach((w) => {
+      typeCounts[w.type] = (typeCounts[w.type] || 0) + 1;
     });
 
-    const pieCtx = document.getElementById("workoutPieChart").getContext('2d');
+    const pieCtx = document.getElementById("workoutPieChart").getContext("2d");
     window.pieChart = new Chart(pieCtx, {
-        type: 'pie', 
-        data: {
-            labels: Object.keys(typeCounts), 
-            datasets: [{
-                label: 'Workout Type Distribution',
-                data: Object.values(typeCounts),
-                backgroundColor: ['#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0'],
-            }]
-        }
+      type: "pie",
+      data: {
+        labels: Object.keys(typeCounts),
+        datasets: [
+          {
+            label: "Workout Type Distribution",
+            data: Object.values(typeCounts),
+            backgroundColor: ["#0b84a5", "#f6c85f", "#6f4e7c", "#9dd866", "#ca472f", "#ffa056", "#8dddd0", "#3cc677"],
+          },
+        ],
+      },
     });
 
     const caloriesPerType = {};
-    workouts.forEach(w => {
-        caloriesPerType[w.type] = (caloriesPerType[w.type] || 0)+ w.calories;
+    workouts.forEach((w) => {
+      caloriesPerType[w.type] = (caloriesPerType[w.type] || 0) + w.calories;
     });
 
     const barCtx = document.getElementById("workoutBarChart").getContext("2d");
     window.barChart = new Chart(barCtx, {
-    type: 'bar',
-    data: {
+      type: "bar",
+      data: {
         labels: Object.keys(caloriesPerType),
-        datasets: [{
-            label: 'Total Calories Burned', 
-            data: Object.values(caloriesPerType), 
-            backgroundColor: ['#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0']
-        }]
-    }, 
-    options: {
-        responsive: true, 
+        datasets: [
+          {
+            label: "Total Calories Burned",
+            data: Object.values(caloriesPerType),
+            backgroundColor: ["#0b84a5", "#f6c85f", "#6f4e7c", "#9dd866", "#ca472f", "#ffa056", "#8dddd0", "#3cc677"],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
         scales: {
-            y: {beginAtZero: true }
-        }
-    }
+          y: { beginAtZero: true },
+        },
+      },
     });
-}
+  }
 });

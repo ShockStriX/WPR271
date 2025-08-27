@@ -48,9 +48,16 @@
         <div id="content-container">
           <!-- Dynamic pages structure -->
           <div id="dashboard" class="page">
+            <h2>Dashboard</h2>
             <div class="charts-container">
-              <canvas id="workoutPieChart" width="400" height="200"></canvas>
-              <canvas id="workoutBarChart" width="400" height="200"></canvas>
+              <div class="chart-card">
+                <h3>Workout Distribution</h3>
+                <canvas id="workoutPieChart"></canvas>
+              </div>
+              <div class="chart-card">
+                <h3>Workout Durations</h3>
+                <canvas id="workoutBarChart"></canvas>
+              </div>
             </div>
           </div>
           <div id="log-workout" class="page">
