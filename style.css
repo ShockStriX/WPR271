@@ -326,8 +326,12 @@ h2 {
   font-size: 1.2em;
 }
 
-/* Make canvas responsive */
+.chart-card {
+  width: 100%;
+  max-width: 500px;
+  height: 60vh; /* control height here */
+}
 .chart-card canvas {
-  width: 100% !important;
-  height: auto !important;
+  width: 100%;
+  height: 100%;
 }
