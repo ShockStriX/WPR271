@@ -34,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (pageID === "workout-history") {
       displayWorkoutHistory();
     }
+    if (pageID === "achievements") {
+      updateAchievements();
+    }
   }
 
   document.querySelectorAll(".sidebar a").forEach((link) => {
@@ -127,6 +130,9 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Workout added", workout);
       console.log("All workouts", workouts);
 
+      // Update achievements after adding new workout
+      updateAchievements();
+
       workoutForm.reset();
     });
   }
@@ -163,6 +169,93 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   displayWorkoutHistory();
 
+  // Update achievements function
+  function updateAchievements() {
+    if (workouts.length === 0) return;
+
+    // Calculate totals
+    const totalWorkouts = workouts.length;
+    const totalCalories = workouts.reduce((sum, w) => sum + w.calories, 0);
+    const totalMinutes = workouts.reduce((sum, w) => sum + w.duration, 0);
+
+    // Calculate workout streak (consecutive days with workouts)
+    const sortedDates = workouts
+      .map((w) => new Date(w.date))
+      .sort((a, b) => b - a);
+    let streak = 0;
+    if (sortedDates.length > 0) {
+      const uniqueDates = [
+        ...new Set(sortedDates.map((d) => d.toDateString())),
+      ];
+      const today = new Date();
+      let currentDate = new Date(today);
+
+      for (let date of uniqueDates) {
+        const workoutDate = new Date(date);
+        const daysDiff = Math.floor(
+          (currentDate - workoutDate) / (1000 * 60 * 60 * 24)
+        );
+
+        if (daysDiff === streak) {
+          streak++;
+          currentDate.setDate(currentDate.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+    }
+
+    // Calculate workout type counts
+    const weightliftingCount = workouts.filter((w) =>
+      w.type.toLowerCase().includes("weightlifting")
+    ).length;
+    const cardioTypes = ["running", "cycling", "swimming", "rowing"];
+    const cardioCount = workouts.filter((w) =>
+      cardioTypes.some((type) => w.type.toLowerCase().includes(type))
+    ).length;
+
+    // Update progress bars
+    updateProgressBar("totalWorkouts", totalWorkouts);
+    updateProgressBar("totalCalories", totalCalories);
+    updateProgressBar("totalTime", totalMinutes);
+    updateProgressBar("weightlifting", weightliftingCount);
+    updateProgressBar("cardio", cardioCount);
+
+    // Update text values
+    const totalWorkoutsElement = document.getElementById("totalWorkoutsCount");
+    const totalCaloriesElement = document.getElementById("totalCaloriesCount");
+    const totalTimeElement = document.getElementById("totalTimeCount");
+    const streakElement = document.getElementById("streakCount");
+    const weightliftingElement = document.getElementById("weightliftingCount");
+    const cardioElement = document.getElementById("cardioCount");
+
+    if (totalWorkoutsElement) totalWorkoutsElement.textContent = totalWorkouts;
+    if (totalCaloriesElement)
+      totalCaloriesElement.textContent = totalCalories.toLocaleString();
+    if (totalTimeElement)
+      totalTimeElement.textContent = totalMinutes.toLocaleString();
+    if (streakElement) streakElement.textContent = streak;
+    if (weightliftingElement)
+      weightliftingElement.textContent = weightliftingCount;
+    if (cardioElement) cardioElement.textContent = cardioCount;
+  }
+
+  // Helper function to update individual progress bar
+  function updateProgressBar(id, current) {
+    const progressElement = document.getElementById(id + "Progress");
+    if (!progressElement) return;
+
+    // Find the parent progress-text and get the data-goal attribute
+    const container = progressElement.closest(".progress-bar-container");
+    const textElement = container.querySelector(".progress-text");
+    const goal = parseInt(textElement.getAttribute("data-goal"));
+
+    if (!goal || isNaN(goal)) return;
+
+    const percentage = Math.min((current / goal) * 100, 100);
+    progressElement.style.width = percentage + "%";
+  }
+
   //Generating Workout Charts
   function renderCharts() {
     if (window.pieChart) window.pieChart.destroy();
@@ -182,7 +275,16 @@ document.addEventListener("DOMContentLoaded", function () {
           {
             label: "Workout Type Distribution",
             data: Object.values(typeCounts),
-            backgroundColor: ["#0b84a5", "#f6c85f", "#6f4e7c", "#9dd866", "#ca472f", "#ffa056", "#8dddd0", "#3cc677"],
+            backgroundColor: [
+              "#0b84a5",
+              "#f6c85f",
+              "#6f4e7c",
+              "#9dd866",
+              "#ca472f",
+              "#ffa056",
+              "#8dddd0",
+              "#3cc677",
+            ],
           },
         ],
       },
@@ -202,7 +304,16 @@ document.addEventListener("DOMContentLoaded", function () {
           {
             label: "Total Calories Burned",
             data: Object.values(caloriesPerType),
-            backgroundColor: ["#0b84a5", "#f6c85f", "#6f4e7c", "#9dd866", "#ca472f", "#ffa056", "#8dddd0", "#3cc677"],
+            backgroundColor: [
+              "#0b84a5",
+              "#f6c85f",
+              "#6f4e7c",
+              "#9dd866",
+              "#ca472f",
+              "#ffa056",
+              "#8dddd0",
+              "#3cc677",
+            ],
           },
         ],
       },
@@ -214,4 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     });
   }
+
+  // Initialize achievements on page load
+  updateAchievements();
 });
