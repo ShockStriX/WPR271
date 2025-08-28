@@ -55,12 +55,13 @@
                 <canvas id="workoutPieChart"></canvas>
               </div>
               <div class="chart-card">
-                <h3>Workout Durations</h3>
+                <h3>Calories by Workout Type</h3>
                 <canvas id="workoutBarChart"></canvas>
               </div>
             </div>
           </div>
-          <div id="log-workout" class="page">
+          
+          <div id="log-workout" class="page" style="display: none;">
             <h1>Log a Workout</h1>
             <form id="workoutForm">
               <label>
@@ -82,16 +83,17 @@
               <button type="submit">Add Workout</button>
             </form>
           </div>
-          <div id="workout-history" class="page">
+          
+          <div id="workout-history" class="page" style="display: none;">
             <h2>Workout History</h2>
             <table id="workoutTable">
               <thead>
                 <tr>
+                  <th>Favourite</th>
                   <th>Type</th>
                   <th>Duration</th>
                   <th>Calories</th>
                   <th>Date</th>
-                  <th>Favourite</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,13 +101,215 @@
               </tbody>
             </table>
           </div>
-          <div id="goals" class="page">
-            <h1>This is your goals</h1>
+
+          <div id="goals" class="page" style="display: none;">
+            <div class="goals-header">
+              <h2>🎯 Goals & Progress</h2>
+              <button onclick="showAddGoalModal()" class="btn-primary">
+                + Add New Goal
+              </button>
+            </div>
+
+            <div class="goals-stats">
+              <div class="stat-card">
+                <h3>Active Goals</h3>
+                <span class="stat-number" id="activeGoalsCount">3</span>
+              </div>
+              <div class="stat-card">
+                <h3>Completed</h3>
+                <span class="stat-number" id="completedGoalsCount">1</span>
+              </div>
+              <div class="stat-card">
+                <h3>Success Rate</h3>
+                <span class="stat-number" id="successRate">75%</span>
+              </div>
+            </div>
+
+            <div id="goalsContainer" class="goals-container">
+              <!-- Goals will be dynamically inserted here -->
+            </div>
           </div>
-          <div id="achievements" class="page">
-            <h1>These are your achievements</h1>
+
+          <!-- Add Goal Modal -->
+          <div id="addGoalModal" class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Add New Goal</h3>
+                <span class="close" onclick="closeModal('addGoalModal')"
+                  >&times;</span
+                >
+              </div>
+              <form
+                id="newGoalForm"
+                onsubmit="event.preventDefault(); addNewGoal();"
+              >
+                <div class="form-group">
+                  <label for="newGoalTitle">Goal Title *</label>
+                  <input type="text" id="newGoalTitle" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="newGoalDescription">Description</label>
+                  <textarea id="newGoalDescription" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="newGoalType">Goal Type *</label>
+                    <select id="newGoalType" required>
+                      <option value="frequency">Workout Frequency</option>
+                      <option value="calories">Calories Burned</option>
+                      <option value="activity">Specific Activity</option>
+                      <option value="duration">Exercise Duration</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="newGoalCategory">Category</label>
+                    <select id="newGoalCategory">
+                      <option value="Frequency">Frequency</option>
+                      <option value="Calories">Calories</option>
+                      <option value="Skill">Skill</option>
+                      <option value="Strength">Strength</option>
+                      <option value="Endurance">Endurance</option>
+                      <option value="Flexibility">Flexibility</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="newGoalTarget">Target *</label>
+                    <input type="number" id="newGoalTarget" min="1" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="newGoalDeadline">Deadline *</label>
+                    <input type="date" id="newGoalDeadline" required />
+                  </div>
+                </div>
+
+                <div class="modal-actions">
+                  <button
+                    type="button"
+                    onclick="closeModal('addGoalModal')"
+                    class="btn-secondary"
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn-primary">Add Goal</button>
+                </div>
+              </form>
+            </div>
           </div>
-          <div id="reminders" class="page">
+
+          <!-- Edit Goal Modal -->
+          <div id="editGoalModal" class="modal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>Edit Goal</h3>
+                <span class="close" onclick="closeModal('editGoalModal')"
+                  >&times;</span
+                >
+              </div>
+              <form
+                id="editGoalForm"
+                onsubmit="event.preventDefault(); updateGoal();"
+              >
+                <input type="hidden" id="editGoalId" />
+
+                <div class="form-group">
+                  <label for="editGoalTitle">Goal Title *</label>
+                  <input type="text" id="editGoalTitle" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="editGoalDescription">Description</label>
+                  <textarea id="editGoalDescription" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="editGoalType">Goal Type *</label>
+                    <select id="editGoalType" required>
+                      <option value="frequency">Workout Frequency</option>
+                      <option value="calories">Calories Burned</option>
+                      <option value="activity">Specific Activity</option>
+                      <option value="duration">Exercise Duration</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="editGoalCategory">Category</label>
+                    <select id="editGoalCategory">
+                      <option value="Frequency">Frequency</option>
+                      <option value="Calories">Calories</option>
+                      <option value="Skill">Skill</option>
+                      <option value="Strength">Strength</option>
+                      <option value="Endurance">Endurance</option>
+                      <option value="Flexibility">Flexibility</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="editGoalTarget">Target *</label>
+                    <input type="number" id="editGoalTarget" min="1" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="editGoalDeadline">Deadline *</label>
+                    <input type="date" id="editGoalDeadline" required />
+                  </div>
+                </div>
+
+                <div class="modal-actions">
+                  <button
+                    type="button"
+                    onclick="closeModal('editGoalModal')"
+                    class="btn-secondary"
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" class="btn-primary">Update Goal</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <div id="achievements" class="page" style="display: none;">
+            <div class="achievements-header">
+              <h2>🏆 Your Achievements</h2>
+              <p>Earn badges by completing fitness milestones</p>
+            </div>
+            
+            <div class="achievements-stats">
+              <div class="stat-card">
+                <h3>Total Badges</h3>
+                <span class="stat-number" id="totalBadges">0</span>
+              </div>
+              <div class="stat-card">
+                <h3>Completion Rate</h3>
+                <span class="stat-number" id="completionRate">0%</span>
+              </div>
+              <div class="stat-card">
+                <h3>Recent Unlock</h3>
+                <span class="stat-number" id="recentUnlock">None</span>
+              </div>
+            </div>
+            
+            <div class="achievements-filter">
+              <button class="filter-btn active" data-filter="all">All</button>
+              <button class="filter-btn" data-filter="completed">Earned</button>
+              <button class="filter-btn" data-filter="pending">Locked</button>
+            </div>
+            
+            <div id="achievementsContainer" class="achievements-container">
+              <!-- Achievements will be dynamically inserted here -->
+            </div>
+          </div>
+          
+          <div id="reminders" class="page" style="display: none;">
             <h1>These are your reminders</h1>
           </div>
         </div>
