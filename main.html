@@ -104,7 +104,7 @@
           </div>
           <div id="goals" class="page">
             <h2>Goals & Progress</h2>
-            <div class="achievements-container">
+            <div class="goals-container">
               <div class="achievement-card">
                 <h3>Total Workouts</h3>
                 <div class="progress-bar-container">
@@ -167,8 +167,88 @@
             </div>
           </div>
           </div>
-          <div id="achievements" class="page">
+
+<div id="achievements" class="page">
+  <!-- Achievements Header / Stats -->
+  <div class="achievements-header">
+    <h2>🏆 Achievements & Badges</h2>
+    <div class="achievement-stats">
+      <div class="stat-item">
+        <span class="stat-label">Earned</span>
+        <span class="stat-value" id="earnedBadges">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Total</span>
+        <span class="stat-value" id="totalBadges">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Progress</span>
+        <span class="stat-value" id="achievementProgress">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Achievement Category Buttons -->
+  <div class="achievement-categories">
+    <button class="category-btn active" data-category-btn="all">All</button>
+    <button class="category-btn" data-category-btn="workout">Workout</button>
+    <button class="category-btn" data-category-btn="calories">Calories</button>
+    <button class="category-btn" data-category-btn="streak">Streaks</button>
+    <button class="category-btn" data-category-btn="milestone">Milestones</button>
+  </div>
+
+  <!-- Achievements Container -->
+  <div class="achievements-container card" id="achievementsContainer">
+    <!-- Cards dynamically inserted by updateAchievementDisplay() -->
+  </div>
+
+  <!-- Achievement Unlock Modal -->
+  <div id="achievementModal" class="achievement-modal">
+    <div class="achievement-modal-content">
+      <div class="achievement-celebration">
+        <div class="confetti"></div>
+        <div class="achievement-unlock">
+          <div class="achievement-icon-large" id="modalAchievementIcon">🏆</div>
+          <h2>Achievement Unlocked!</h2>
+          <h3 id="modalAchievementTitle">Achievement Title</h3>
+          <p id="modalAchievementDescription">Achievement description</p>
+          <div class="xp-reward">
+            <span>+<span id="modalXpReward">0</span> XP</span>
           </div>
+          <button onclick="closeAchievementModal()" class="btn-primary">Awesome!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Player Level Section -->
+  <div class="player-level-section">
+    <div class="level-card">
+      <div class="level-info">
+        <h3>Player Level</h3>
+        <div class="level-display">
+          <span class="level-number" id="playerLevel">1</span>
+          <div class="level-details">
+            <span class="level-title" id="levelTitle">Beginner</span>
+            <div class="xp-bar">
+              <div class="xp-fill" id="xpFill"></div>
+            </div>
+            <span class="xp-text" id="xpText">0 / 100 XP</span>
+          </div>
+        </div>
+      </div>
+      <div class="level-rewards">
+        <h4>Next Level Rewards:</h4>
+        <ul id="nextLevelRewards">
+          <li>New achievement badges</li>
+          <li>Workout insights</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div id="reminders" class="page">
             <h2>Fitness Tips & Exercise Guides</h2>
             <div class="blog-container">
@@ -188,7 +268,6 @@
                     </ul>
                   </div>
                 </article>
- 
                 <article class="blog-card">
                   <div class="blog-image-placeholder-2"></div>
                   <div class="blog-content">
