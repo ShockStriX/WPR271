@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
       progress: 0,
     },
   ];
-  
+
   // Login form handler
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
@@ -209,7 +209,6 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "main.html";
     });
   }
-
   // Sidebar toggle handler
   const toggleBtn = document.querySelector(".toggle-btn");
   const sidebar = document.querySelector(".sidebar");
@@ -857,4 +856,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.displayAchievements = displayAchievements;
   window.checkAchievements = checkAchievements;
   window.initializeAchievements = initializeAchievements;
+
+  updateGoals();
+ showPage("dashboard");
 });
